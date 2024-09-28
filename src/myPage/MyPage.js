@@ -1,12 +1,49 @@
-import React, { useRef }from "react";
+import React, { useRef, useState, useEffect }from "react";
 import { Canvas, useFrame } from "react-three-fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import "./MyPage.css";
 import LogIcon from "../LogIcon/LogIcon";
+import axios from "axios";
 
 export default function MyPage(){
     const treeRef = useRef(); // useRef 훅으로 오브젝트 참조 생성
+    const [exp, setExp] = useState(0);  // 경험치 상태 추가
+
+      // 경험치 호출 API
+      async function fetchTreeExp() {
+        try {
+            const response = await axios.post(`http://10.223.114.198:8000/tree`);
+            return response.data.exp; // 경험치 데이터 반환
+        } catch (error) {
+            console.error('API 에러:', error);
+            return null;
+        }
+    }
+  
+  
+      // API 호출 및 경험치 설정
+      useEffect(() => {
+          const loadExp = async () => {
+              const exp = await fetchTreeExp();
+              if (exp !== null) {
+                  setExp(exp);
+                  renderTreeByExp();
+              }
+          };
+          loadExp();
+      }, []);
+  
+      // 경험치에 따라 다른 나무 렌더링
+      const renderTreeByExp = () => {
+          if (exp >= 800) return <RotatingTree5 />;
+          if (exp >= 600) return <RotatingTree4 />;
+          if (exp >= 400) return <RotatingTree3 />;
+          if (exp >= 200) return <RotatingTree2 />;
+          return <RotatingTree1 />;
+      };
+  
+  
 
     function RotatingTree1() {
         const { scene } = useGLTF('/tree_level1.gltf'); 
@@ -106,7 +143,7 @@ export default function MyPage(){
                         {/* <RotatingTree2/> */}
                         {/* <RotatingTree3/> */}
                         {/* <RotatingTree4/> */}
-                        <RotatingTree5/>
+                        {/* <RotatingTree5/> */}
 
                         <OrbitControls 
                             enablePan={false} 
