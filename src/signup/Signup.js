@@ -13,6 +13,7 @@ const Signup = () => {
         confirmPassword: ''
     });
     const [passwordMatch, setPasswordMatch] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(''); // 에러 메시지 상태 추가
     const navigate = useNavigate();
 
     // 아이디 유효성 검사 함수 (영어, 숫자 조합 & 4~15글자 사이)
@@ -35,18 +36,29 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setErrorMessage(''); // 제출 시 기존 오류 메시지 초기화
+
         if (passwordMatch && validateId(formData.id)) {
             try {
-                const response = await axios.post(`${process.env.SERVER_URL}/user/signup`, formData);
+                const response = await axios.post(`http://10.223.114.198:8080/user/signup`, {
+                    "userID": formData.id,
+                    "password": formData.password,
+                    "nickname": formData.nickname,
+                });
                 if (response.status === 201) {
                     alert('회원가입이 성공적으로 완료되었습니다.');
                     navigate('/login');
                 }
             } catch (error) {
-                console.error('회원가입 중 오류 발생:', error);
+                if (error.response && error.response.status === 400 && error.response.data.message === "Username already exists") {
+                    setErrorMessage("이미 존재하는 아이디입니다."); // 에러 메시지 설정
+                } else {
+                    console.error('회원가입 중 오류 발생:', error);
+                    setErrorMessage("회원가입 중 오류가 발생했습니다.");
+                }
             }
         } else {
-            alert('아이디 유효성 검사 또는 비밀번호 확인이 필요합니다.');
+            setErrorMessage('아이디 유효성 검사 또는 비밀번호 확인이 필요합니다.');
         }
     };
 
@@ -85,6 +97,11 @@ const Signup = () => {
                         ) : (
                             <p className="invalid-message">비밀번호가 일치하지 않습니다.</p>
                         )
+                    )}
+
+                    {/* 오류 메시지 출력 */}
+                    {errorMessage && (
+                        <p className="invalid-message">{errorMessage}</p>
                     )}
 
                     <Button className="signup-btn" type="submit" disabled={!passwordMatch || !validateId(formData.id)}>

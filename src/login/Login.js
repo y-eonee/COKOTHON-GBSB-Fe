@@ -36,7 +36,7 @@ const Login = () => {
             localStorage.setItem('token', accessToken);
 
             console.log('Login successful, token:', accessToken);
-            navigate('/success');  // 대시보드로 이동
+            navigate('/checkGrammer');  // 맞춤법 검사 창으로
         } catch (error) {
             console.error('Login error:', error);
             alert('로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.');
