@@ -14,12 +14,20 @@ export default function Grammer() {
     const treeRef = useRef();
     const accessToken = localStorage.getItem('token');
 
+
     // 맞춤법 검사 API 호출
     async function checkSpelling(sentence) {
         try {
-            const response = await axios.post(`http://10.223.114.198:8080`, {
-                "sentence": sentence
-            });
+            const response = await axios.post(`http://10.223.114.198:8080`, 
+                {
+                    "sentence": sentence
+                }, 
+                {
+                    headers: {
+                        Authorization: `${accessToken}`,
+                    },
+                }
+            );
             setCorrectionResults(response.data.result);
             setExp(response.data.exp);
             fetchTreeExp();
