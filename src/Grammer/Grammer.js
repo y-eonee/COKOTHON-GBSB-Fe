@@ -19,7 +19,7 @@ export default function Grammer(){
     }
 
     return(
-        <div>
+        <div style={{marginTop : 70}}>
             <NavigationBar/>
             <div className="rectangle-container">
                 <div className="rectangle">

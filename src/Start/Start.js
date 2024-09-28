@@ -33,7 +33,7 @@ export default function Start(){
       }
 
     return(
-        <div style={{ width: '100vw', height: '80vh', margin: 0, padding: 0 }}> 
+        <div style={{ width: '100vw', height: '80vh', margin: 0, padding: 0, marginTop : 65 }}> 
             <NavigationBar />
           
             <Canvas
