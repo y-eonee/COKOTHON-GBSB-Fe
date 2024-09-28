@@ -9,6 +9,7 @@ export default function Grammer() {
     const [content, setContent] = useState("");
     const [isTouched, setIsTouched] = useState(false);
     const [correctionResults, setCorrectionResults] = useState([]);
+    const [expTextView, setExpTextView] = useState(false);
     const [exp, setExp] = useState(0);
     const treeRef = useRef();
     const accessToken = localStorage.getItem('token');
@@ -22,6 +23,7 @@ export default function Grammer() {
             setCorrectionResults(response.data.result);
             setExp(response.data.exp);
             fetchTreeExp();
+            setExpTextView(true);
         } catch (error) {
             console.error('API 에러:', error);
         }
@@ -151,7 +153,7 @@ export default function Grammer() {
                         <span>나의 나무</span>
                     </div>
                     <div className="experience-text">
-                        {exp > 0 && <span>경험치 40을 획득했습니다.</span>}
+                        {expTextView && exp>0 &&  <span>경험치 40을 획득했습니다.</span> }
                     </div>
                     <Canvas camera={{ position: [0, 15, 20], fov: 60 }}>
                         <ambientLight color={'#ffffff'} intensity={3} />
