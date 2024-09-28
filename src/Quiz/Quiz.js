@@ -18,7 +18,7 @@ const Quiz = () => {
     useEffect(() => {
         const fetchQuizData = async () => {
             try {
-                const response = await axios.get('http://10.223.114.198:8080/quiz/1', {
+                const response = await axios.get('http://10.223.114.198:8080/quiz', {
                     headers: {
                         Authorization: `${accessToken}`, // AccessToken 추가
                     },
@@ -54,7 +54,7 @@ const Quiz = () => {
         try {
             // 퀴즈 `id`와 `answer`를 함께 서버로 전송
             const response = await axios.post(
-                `http://10.223.114.198:8080/quiz/1`,
+                `http://10.223.114.198:8080/quiz/${quizData.id}`,
                 {
                     answer: selectedAnswer,  // 실제 선택된 인덱스에 해당하는 값을 보냄
                     id: quizData.id // 퀴즈의 id를 함께 보냄
@@ -67,11 +67,26 @@ const Quiz = () => {
             );
 
             // 정답인 경우 QuizCorrect 페이지로 이동
-            if (response.status === 200 && response.data.message == "정답입니다.") {
+            if (response.status === 200 && response.data.message === "정답입니다.") {
                 alert("정답입니다!");
-                navigate('/quiz-correct', { state: { sentence: quizData.words.join(' ') } });
-            } else {
-                alert("오답입니다. 다시 시도해보세요.");
+                // QuizCorrect로 전체 문장과 선택된 단어 인덱스를 함께 전달
+                navigate('/quiz-correct', {
+                    state: {
+                        words: quizData.words,
+                        answer: selectedAnswer
+                    }
+                });
+            }
+            // 오답인 경우 QuizWrong 페이지로 이동 (correctAnswer 값 포함)
+            else if (response.status === 200 && response.data.message === "틀렸습니다.") {
+                alert("오답입니다!");
+                // QuizWrong로 전체 문장과 서버에서 받은 correctAnswer 인덱스를 함께 전달
+                navigate('/quiz-wrong', {
+                    state: {
+                        words: quizData.words,
+                        answer: response.data.correctAnswer // 서버에서 받은 correctAnswer 전달
+                    }
+                });
             }
         } catch (error) {
             console.error("제출 중 오류가 발생했습니다:", error);

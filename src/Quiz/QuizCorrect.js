@@ -7,7 +7,8 @@ import './QuizCorrect.css';
 const QuizCorrect = () => {
     const [info, setInfo] = useState(''); // info 데이터를 저장할 상태 변수
     const location = useLocation(); // location 객체에서 전달된 state 받기
-    const sentence = location.state?.sentence || ''; // 전달된 sentence가 없으면 빈 문자열
+    const words = location.state?.words || []; // 전달된 words 배열
+    const answer = location.state?.answer; // 선택한 답안 인덱스
 
     useEffect(() => {
         const fetchExplanation = async () => {
@@ -15,7 +16,7 @@ const QuizCorrect = () => {
                 // 서버에 POST 요청 보내기
                 const response = await axios.post(`http://10.223.114.198:8080`,
                     {
-                        "sentence": sentence // 전달받은 sentence를 서버에 보냄
+                        "sentence": words.join(' ') // 전달받은 words를 join해서 서버에 보냄
                     }
                 );
 
@@ -28,11 +29,22 @@ const QuizCorrect = () => {
             }
         };
 
-        // sentence가 존재하는 경우에만 서버 요청 실행
-        if (sentence) {
+        // words 배열이 존재하는 경우에만 서버 요청 실행
+        if (words.length > 0) {
             fetchExplanation();
         }
-    }, [sentence]); // sentence가 바뀔 때마다 실행되도록 useEffect 설정
+    }, [words]); // words가 바뀔 때마다 실행되도록 useEffect 설정
+
+    // 선택된 단어를 빨간색으로 강조한 문장 생성
+    const renderSentence = () => {
+        return words.map((word, idx) => {
+            // 선택된 단어에 해당하는 경우 빨간색으로 스타일링
+            if (idx === answer) {
+                return <span key={idx} style={{ color: 'red', fontWeight: 'bold' }}>{word} </span>;
+            }
+            return <span key={idx} style={{ color: 'black' }}>{word} </span>;
+        });
+    };
 
     return (
         <div>
@@ -41,8 +53,8 @@ const QuizCorrect = () => {
                 <div className="quiz-content">
                     <h1 className="quiz-title">정답입니다!</h1>
 
-                    {/* 전달된 sentence를 Q. 로 표시 */}
-                    <h2 className="question">Q. {sentence}</h2>
+                    {/* 전달된 words를 조합한 문장을 Q. 로 표시 */}
+                    <h2 className="question">Q. {renderSentence()}</h2>
 
                     {/* 서버에서 받아온 해설 info 출력 */}
                     {info && (
