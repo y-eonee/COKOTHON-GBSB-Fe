@@ -88,7 +88,7 @@ export default function MyPage(){
         });
     
         return (
-          <group ref={treeRef} position={[0, -13, 0]} scale={[2,2,2]}>
+          <group ref={treeRef} position={[0, -14.3, 0]} scale={[3,2,2]}>
             <primitive object={scene} />
           </group>
         );
@@ -103,7 +103,7 @@ export default function MyPage(){
         });
     
         return (
-          <group ref={treeRef} position={[0, -13, 0]} scale={[1.3,1.3,1.3]}>
+          <group ref={treeRef} position={[0, -14.5, 0]} scale={[2.3,1.3,1.3]}>
             <primitive object={scene} />
           </group>
         );
@@ -119,7 +119,7 @@ export default function MyPage(){
         });
     
         return (
-          <group ref={treeRef} position={[0, -10, 0]} scale={[3.2,3.2,3.2]}>
+          <group ref={treeRef} position={[0, -14.2, 0]} scale={[6.4,3.2,3.2]}>
             <primitive object={scene} />
           </group>
         );
@@ -135,7 +135,7 @@ export default function MyPage(){
         });
     
         return (
-          <group ref={treeRef} position={[0, -15, 0]} scale={[1.3,1.3,1.3]}>
+          <group ref={treeRef} position={[0, -15, 0]} scale={[2.0,1.3,1.3]}>
             <primitive object={scene} />
           </group>
         );
@@ -151,7 +151,7 @@ export default function MyPage(){
         });
     
         return (
-          <group ref={treeRef} position={[0, -13, 0]} scale={[2,2,2]}>
+          <group ref={treeRef} position={[0, -14, 0]} scale={[2.7,2,2]}>
             <primitive object={scene} />
           </group>
         );
@@ -185,15 +185,17 @@ export default function MyPage(){
                     </Canvas>
                 </div>
             </div>
-            
-            <div className="log-container">
-              {[...Array(Math.min(logCount, 20))].map((_, index) => (
-                <div className="log-icon-wrapper" key={index}>
-                  <LogIcon iconNum={index}/>
+
+            <div className="mypage-underground">
+                <div className="log-container">
+                    {[...Array(Math.min(logCount, 20))].map((_, index) => (
+                        <div className="log-icon-wrapper" key={index}>
+                            <LogIcon iconNum={index}/>
+                        </div>
+                    ))}
                 </div>
-              ))}
             </div>
-            
+
         </div>
     );
 }

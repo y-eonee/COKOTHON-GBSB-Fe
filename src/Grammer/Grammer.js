@@ -161,7 +161,7 @@ export default function Grammer() {
                         <span>나의 나무</span>
                     </div>
                     <div className="experience-text">
-                        {expTextView && exp>0 &&  <span>경험치 40을 획득했습니다.</span> }
+                        {expTextView && exp>0 &&  <span>경험치 {exp}을 획득했습니다.</span> }
                     </div>
                     <Canvas camera={{ position: [0, 15, 20], fov: 60 }}>
                         <ambientLight color={'#ffffff'} intensity={3} />

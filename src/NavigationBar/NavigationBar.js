@@ -55,12 +55,12 @@ export default function NavigationBar() {
         navigate('/mypage');
     };
 
+    // 로컬스토리지에서 토큰을 삭제하고 로그아웃 처리
     const handleLogout = () => {
         localStorage.removeItem('token'); // 토큰 삭제
         setIsLoggedIn(false); // 로그아웃 상태로 변경
-        navigate('/'); // 로그아웃 후 홈으로 이동
+        navigate('/checkGrammer'); // 로그아웃 후 홈으로 이동
     };
-
 
     return (
         <div className="header">

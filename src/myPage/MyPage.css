@@ -52,3 +52,13 @@
     width: 100%; /* 아이콘 이미지를 감싸는 div의 너비에 맞추기 */
     height: auto; /* 비율에 따라 높이 자동 조정 */
 }
+
+.mypage-underground {
+    background-image: url('../../public/underground-001.png');
+    background-size: cover; /* 요소를 덮도록 이미지 크기 설정 */
+    background-position: top center; /* 이미지 가운데 정렬 */
+    background-repeat: no-repeat; /* 배경 이미지 반복 안 함 */
+    padding: 20px 10px;
+    width: 100%; /* 부모 요소 크기에 맞게 조정 */
+    min-height: 300px; /* 최소 높이 설정 (필요에 따라 조정 가능) */
+}
