@@ -1,0 +1,6 @@
+.start-button{
+    position: absolute;
+    margin-right: 30px;
+    bottom: 20px; /* 버튼을 화면 아래에서 20px 위로 */
+}
+

@@ -13,15 +13,12 @@ button {
     cursor: pointer; /* 포인터 커서 */
     margin: 1rem auto; /* 상하 여백과 중앙 정렬 */
     transition: background-color 0.2s ease; /* 배경색 변경 시 애니메이션 */
-    
 }
 
 .button-container {
-    position: fixed; /* 화면에 고정 */
-    bottom: 8px; /* 화면 하단에서 8px 띄움 */
-    left: 50%; /* 가로 중앙 정렬 */
-    transform: translateX(-50%); /* 수평 중앙 정렬을 위한 조정 */
     padding-bottom: 10px; /* 버튼과 화면 하단 사이에 추가 여백 */
+    display: flex;
+    justify-content: center;
 }
 
 /* 활성화된 버튼 (enabled) */

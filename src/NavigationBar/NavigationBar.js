@@ -4,7 +4,7 @@ import "./NavigationBar.css";
 
 export default function NavigationBar(){
     const navigate = useNavigate();
-
+    
     return(
         <div className="header">
             <div className="title-container">
