@@ -5,62 +5,43 @@ import { useGLTF, OrbitControls } from "@react-three/drei";
 import "./Grammer.css";
 import axios from "axios";
 
-export default function Grammer(){
+export default function Grammer() {
     const [content, setContent] = useState("");
     const [isTouched, setIsTouched] = useState(false);
-    const [correctionResults, setCorrectionResults] = useState([]); // 교정 결과 상태 추가
-    const treeRef = useRef(); // useRef 훅으로 오브젝트 참조 생성
+    const [correctionResults, setCorrectionResults] = useState([]);
+    const [exp, setExp] = useState(0);
+    const treeRef = useRef();
+    const accessToken = localStorage.getItem('token');
 
-    const [exp, setExp] = useState(0);  // 경험치 상태 추가
-
-    // const SERVER_URL = process.env.REACT_APP_SERVEL_URL;
-    // console.log(SERVER_URL); 
-
-   
     // 맞춤법 검사 API 호출
     async function checkSpelling(sentence) {
-      try {
-          console.log(sentence);
-          const response = await axios.post(`http://10.223.114.198:8080`, {
-              "sentence": sentence
-          });
-          console.log(response.data);
-          setCorrectionResults(response.data.result);
-          setExp(response.data.exp); // 경험치 업데이트
-          return response.data;  // 교정 결과 데이터 반환
-      } catch (error) {
-          console.error('API 에러:', error);
-          return null;
-      }
+        try {
+            const response = await axios.post(`http://10.223.114.198:8080`, {
+                "sentence": sentence
+            });
+            setCorrectionResults(response.data.result);
+            setExp(response.data.exp);
+            fetchTreeExp();
+        } catch (error) {
+            console.error('API 에러:', error);
+        }
     }
 
-
     // 경험치 호출 API
-    async function fetchTreeExp() {
-      try {
-          const response = await axios.post(`http://10.223.114.198:8080/tree`);
-          console.log(response.data.exp);
-          return response.data.exp; // 경험치 데이터 반환
-      } catch (error) {
-          console.error('API 에러:', error);
-          return null;
-      }
-  }
+    const fetchTreeExp = async () => {
+        try {
+            const response = await axios.post(`http://10.223.114.198:8080/tree`, null, {
+                headers: {
+                    Authorization: `${accessToken}`,
+                },
+            });
+            setExp(response.data.exp);
+        } catch (error) {
+            console.error('API 에러:', error);
+        }
+    };
 
-
-    // API 호출 및 경험치 설정
-    useEffect(() => {
-        const loadExp = async () => {
-            const exp = await fetchTreeExp();
-            if (exp !== null) {
-                setExp(exp);
-                renderTreeByExp();
-            }
-        };
-        loadExp();
-    }, []);
-
-    // 경험치에 따라 다른 나무 렌더링
+    // 경험치에 따라 나무 렌더링
     const renderTreeByExp = () => {
         if (exp >= 800) return <RotatingTree5 />;
         if (exp >= 600) return <RotatingTree4 />;
@@ -69,114 +50,86 @@ export default function Grammer(){
         return <RotatingTree1 />;
     };
 
+    useEffect(() => {
+        fetchTreeExp(); // 컴포넌트 마운트 시 경험치 데이터 가져오기
+    }, []); // 빈 배열을 의존성으로 사용하여 처음 한 번만 호출
 
-    // 내용 지우기 함수
     const contentClear = () => {
-        setContent("");  // 내용 초기화
-        setIsTouched(false);  // 터치 상태 초기화
-    }
+        setContent("");
+        setIsTouched(false);
+    };
 
-    function RotatingTree1() {
-        const { scene } = useGLTF('/tree_level1.gltf'); 
+    // 나무 모델 컴포넌트들
+    const RotatingTree1 = () => {
+        const { scene } = useGLTF('/tree_level1.gltf');
         useFrame(() => {
-          if (treeRef.current) {
-            treeRef.current.rotation.y += 0.003; // Y축을 기준으로 회전 (공전 효과)
-          }
+            if (treeRef.current) {
+                treeRef.current.rotation.y += 0.003;
+            }
         });
-    
-        return (
-          <group ref={treeRef} position={[0, -3, 0]} scale={[1.5,1.5,1.5]}>
-            <primitive object={scene} />
-          </group>
-        );
-    }
+        return <group ref={treeRef} position={[0, -3, 0]} scale={[1.5, 1.5, 1.5]}><primitive object={scene} /></group>;
+    };
 
-    function RotatingTree2() {
-        const { scene } = useGLTF('/tree_level2.gltf'); 
+    const RotatingTree2 = () => {
+        const { scene } = useGLTF('/tree_level2.gltf');
         useFrame(() => {
-          if (treeRef.current) {
-            treeRef.current.rotation.y += 0.003; // Y축을 기준으로 회전 (공전 효과)
-          }
+            if (treeRef.current) {
+                treeRef.current.rotation.y += 0.003;
+            }
         });
-    
-        return (
-          <group ref={treeRef} position={[0, -5, 0]} scale={[1.1,1.1,1.1]}>
-            <primitive object={scene} />
-          </group>
-        );
-    }
+        return <group ref={treeRef} position={[0, -5, 0]} scale={[1.1, 1.1, 1.1]}><primitive object={scene} /></group>;
+    };
 
-
-    function RotatingTree3() {
-        const { scene } = useGLTF('/tree_level3.gltf'); 
+    const RotatingTree3 = () => {
+        const { scene } = useGLTF('/tree_level3.gltf');
         useFrame(() => {
-          if (treeRef.current) {
-            treeRef.current.rotation.y += 0.003; // Y축을 기준으로 회전 (공전 효과)
-          }
+            if (treeRef.current) {
+                treeRef.current.rotation.y += 0.003;
+            }
         });
-    
-        return (
-          <group ref={treeRef} position={[0, -7, 0]} scale={[3.3,3.3,3.3]}>
-            <primitive object={scene} />
-          </group>
-        );
-    }
+        return <group ref={treeRef} position={[0, -7, 0]} scale={[3.3, 3.3, 3.3]}><primitive object={scene} /></group>;
+    };
 
-
-    function RotatingTree4() {
-        const { scene } = useGLTF('/tree_level4.gltf'); 
+    const RotatingTree4 = () => {
+        const { scene } = useGLTF('/tree_level4.gltf');
         useFrame(() => {
-          if (treeRef.current) {
-            treeRef.current.rotation.y += 0.003; // Y축을 기준으로 회전 (공전 효과)
-          }
+            if (treeRef.current) {
+                treeRef.current.rotation.y += 0.003;
+            }
         });
-    
-        return (
-          <group ref={treeRef} position={[0, -5, 0]} scale={[1,1,1]}>
-            <primitive object={scene} />
-          </group>
-        );
-    }
+        return <group ref={treeRef} position={[0, -5, 0]} scale={[1, 1, 1]}><primitive object={scene} /></group>;
+    };
 
-
-    function RotatingTree5() {
-        const { scene } = useGLTF('/tree_start.gltf'); 
+    const RotatingTree5 = () => {
+        const { scene } = useGLTF('/tree_start.gltf');
         useFrame(() => {
-          if (treeRef.current) {
-            treeRef.current.rotation.y += 0.003; // Y축을 기준으로 회전 (공전 효과)
-          }
+            if (treeRef.current) {
+                treeRef.current.rotation.y += 0.003;
+            }
         });
-    
-        return (
-          <group ref={treeRef} position={[0, -5, 0]} scale={[1.6, 1.6, 1.6]}>
-            <primitive object={scene} />
-          </group>
-        );
-    }
+        return <group ref={treeRef} position={[0, -5, 0]} scale={[1.6, 1.6, 1.6]}><primitive object={scene} /></group>;
+    };
 
-
-    return(
-        <div style={{marginTop : 70}}>
-            <NavigationBar/>
+    return (
+        <div style={{ marginTop: 70 }}>
+            <NavigationBar />
             <div className="rectangle-container">
                 <div className="rectangle">
                     <div className="check-title">
-                        <span>원문</span> 
-                        <img onClick={contentClear} src="/x.svg"/>
+                        <span>원문</span>
+                        <img onClick={contentClear} src="/x.svg" />
                     </div>
-                    <textarea 
+                    <textarea
                         value={content}
                         onChange={(e) => {
                             setContent(e.target.value);
-                            setIsTouched(true);  // 내용이 변경되면 isTouched를 true로 설정
+                            setIsTouched(true);
                         }}
                         className="input-content"
                     />
- 
-                    <div className="submit-container"> 
-                        <button onClick={() => checkSpelling(content)}className="button-enabled">검사하기</button> 
+                    <div className="submit-container">
+                        <button onClick={() => checkSpelling(content)} className="button-enabled">검사하기</button>
                     </div>
-
                 </div>
                 <div className="rectangle">
                     <div className="check-title">
@@ -195,30 +148,24 @@ export default function Grammer(){
                 </div>
                 <div className="rectangle">
                     <div className="check-title">
-                        <span>나의 나무</span> 
+                        <span>나의 나무</span>
                     </div>
                     <div className="experience-text">
-                      {exp > 0 && <span>경험치 {exp}을 획득했습니다.</span>}
+                        {exp > 0 && <span>경험치 40을 획득했습니다.</span>}
                     </div>
-                    <Canvas
-                      camera={{ position: [0, 15, 20], fov: 60 }} 
-                    >
-                      <ambientLight color={'#ffffff'} intensity={3} />
-                      <pointLight color={'#B778FF'} position={[10, 10, 10]} intensity={3} />  
-                      <spotLight color={'#B778FF'}  angle={0.15} penumbra={1} intensity={1} />
-
-                      {/* 경험치 불러오는 api */}
-                      {/* {renderTreeByExp()} */}
-                      
-                        <OrbitControls 
-                            enablePan={false} 
+                    <Canvas camera={{ position: [0, 15, 20], fov: 60 }}>
+                        <ambientLight color={'#ffffff'} intensity={3} />
+                        <pointLight color={'#B778FF'} position={[10, 10, 10]} intensity={3} />
+                        <spotLight color={'#B778FF'} angle={0.15} penumbra={1} intensity={1} />
+                        {renderTreeByExp()} {/* 여기에서 나무를 렌더링합니다. */}
+                        <OrbitControls
+                            enablePan={false}
                             enableZoom={false}
-                            minPolarAngle={Math.PI / 2}  // 상하 회전 제한
-                            maxPolarAngle={Math.PI / 2}  // 상하 회전 제한
-                            maxAzimuthAngle={Math.PI / 4}   // 오른쪽 회전 제한
+                            minPolarAngle={Math.PI / 2}
+                            maxPolarAngle={Math.PI / 2}
+                            maxAzimuthAngle={Math.PI / 4}
                         />
                     </Canvas>
-                   
                 </div>
             </div>
         </div>
