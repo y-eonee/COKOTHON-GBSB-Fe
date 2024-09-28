@@ -5,6 +5,7 @@ import Success from './test/Success';
 import './App.css';
 import Background from './Backgroud/Background';
 import Start from './Start/Start';
+import Grammer from './Grammer/Grammer';
 
 import {
   BrowserRouter as Router,
@@ -22,6 +23,8 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/checkGrammer" element={<Grammer/>}/>
+
       </Routes>
     </Router>
   );

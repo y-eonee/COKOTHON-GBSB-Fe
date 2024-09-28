@@ -18,7 +18,7 @@ button {
 .button-container {
     padding-bottom: 10px; /* 버튼과 화면 하단 사이에 추가 여백 */
     display: flex;
-    justify-content: center; /* 부모 요소 내에서 가로 중앙 정렬 */
+    justify-content: center;
 }
 
 /* 활성화된 버튼 (enabled) */
