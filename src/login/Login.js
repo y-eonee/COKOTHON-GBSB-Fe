@@ -25,14 +25,18 @@ const Login = () => {
         const { id, password } = formData;
 
         try {
-            const response = await axios.post(`${process.env.SERVER_URL}/api/login`, { id, password });
+            const response = await axios.post(`http://10.223.114.198:8080/user/login`,
+                {
+                    "userID": id,
+                    "password": password
+                });
 
             // 서버에서 받은 토큰을 localStorage에 저장
-            const { token } = response.data;
-            localStorage.setItem('token', token);
+            const { accessToken } = response.data;
+            localStorage.setItem('token', accessToken);
 
-            console.log('Login successful, token:', token);
-            navigate('/dashboard');  // 대시보드로 이동
+            console.log('Login successful, token:', accessToken);
+            navigate('/success');  // 대시보드로 이동
         } catch (error) {
             console.error('Login error:', error);
             alert('로그인 실패: 아이디 또는 비밀번호가 잘못되었습니다.');
