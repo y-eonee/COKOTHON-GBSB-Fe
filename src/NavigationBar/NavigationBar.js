@@ -61,6 +61,10 @@ export default function NavigationBar() {
         navigate('/checkGrammer'); // 로그아웃 후 홈으로 이동
     };
 
+    const handleMain = () => {
+        navigate('/');
+    };
+
     return (
         <div className="header">
             <div className="title-container">
