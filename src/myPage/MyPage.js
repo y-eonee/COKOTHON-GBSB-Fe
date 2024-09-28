@@ -5,45 +5,79 @@ import NavigationBar from "../NavigationBar/NavigationBar";
 import "./MyPage.css";
 import LogIcon from "../LogIcon/LogIcon";
 import axios from "axios";
+import GrammerLog from "../GrammerLog/GrammerLog";
 
 export default function MyPage(){
     const treeRef = useRef(); // useRef 훅으로 오브젝트 참조 생성
     const [exp, setExp] = useState(0);  // 경험치 상태 추가
+    const [logCount, setLogCount] = useState(0); // 로그 아이콘 개수를 위한 상태
+    const [userInfo, setUserInfo] = useState({}); // 사용자 정보를 위한 상태
+    const accessToken = localStorage.getItem('token');
 
-      // 경험치 호출 API
-      async function fetchTreeExp() {
-        try {
-            const response = await axios.post(`http://10.223.114.198:8000/tree`);
-            return response.data.exp; // 경험치 데이터 반환
-        } catch (error) {
-            console.error('API 에러:', error);
-            return null;
-        }
-    }
-  
-  
-      // API 호출 및 경험치 설정
-      useEffect(() => {
-          const loadExp = async () => {
-              const exp = await fetchTreeExp();
-              if (exp !== null) {
-                  setExp(exp);
-                  renderTreeByExp();
-              }
-          };
-          loadExp();
-      }, []);
-  
-      // 경험치에 따라 다른 나무 렌더링
-      const renderTreeByExp = () => {
-          if (exp >= 800) return <RotatingTree5 />;
-          if (exp >= 600) return <RotatingTree4 />;
-          if (exp >= 400) return <RotatingTree3 />;
-          if (exp >= 200) return <RotatingTree2 />;
-          return <RotatingTree1 />;
-      };
-  
-  
+
+    const fetchTreeExp = async () => {
+      try {
+          const response = await axios.post(`http://10.223.114.198:8080/tree`, null, {
+              headers: {
+                  Authorization: `${accessToken}`,
+              },
+          });
+          setExp(response.data.exp);
+      } catch (error) {
+          console.error('API 에러:', error);
+      }
+    };
+
+    // 경험치에 따라 나무 렌더링
+    const renderTreeByExp = () => {
+        if (exp >= 800) return <RotatingTree5 />;
+        if (exp >= 600) return <RotatingTree4 />;
+        if (exp >= 400) return <RotatingTree3 />;
+        if (exp >= 200) return <RotatingTree2 />;
+        return <RotatingTree1 />;
+    };
+
+    useEffect(() => {
+      fetchTreeExp(); // 컴포넌트 마운트 시 경험치 데이터 가져오기
+    }, []); // 빈 배열을 의존성으로 사용하여 처음 한 번만 호출
+
+
+     // 로그 개수 가져오기
+     const fetchLogCount = async () => {
+      try {
+          const response = await axios.post(`http://10.223.114.198:8080/log`, null, {
+              headers: {
+                  Authorization: `${accessToken}`,
+              },
+          });
+          console.log(response.data.logs);
+          console.log(response.data.logs.length);
+          setLogCount(response.data.logs.length); // 응답에서 로그 개수를 가져옵니다.
+      } catch (error) {
+          console.error('API 에러:', error);
+      }
+    };
+
+     // 사용자 정보 가져오기
+     const fetchUserInfo = async () => {
+      try {
+          const response = await axios.post(`http://10.223.114.198:8080/info`, null, {
+              headers: {
+                  Authorization: `${accessToken}`,
+              },
+          });
+          setUserInfo(response.data); // 사용자 정보를 상태에 저장
+      } catch (error) {
+          console.error('API 에러:', error);
+      }
+    };
+
+    useEffect(() => {
+      fetchTreeExp(); // 컴포넌트 마운트 시 경험치 데이터 가져오기
+      fetchLogCount(); // 로그 개수 가져오기
+      fetchUserInfo(); // 사용자 정보 가져오기
+    }, []); // 빈 배열을 의존성으로 사용하여 처음 한 번만 호출
+
 
     function RotatingTree1() {
         const { scene } = useGLTF('/tree_level1.gltf'); 
@@ -128,9 +162,9 @@ export default function MyPage(){
             <NavigationBar/>
             <div className="parent-container">
                 <div className="info-container">
-                    <span>회원 정보</span> <br/>
-                    <span>닉네임(ID)</span> <br/>
-                    <span>경험치</span> <br/>
+                    <span>회원 정보</span> <br />
+                    <span>닉네임: {userInfo.nickname}</span> <br /> 
+                    <span>경험치: {exp}</span> <br />
                 </div>
                 <div className="tree-container" style={{ width: '100vw', height: '80vh', margin: 0, padding: 0}}>
                     <Canvas
@@ -139,11 +173,7 @@ export default function MyPage(){
                         <ambientLight color={'#ffffff'} intensity={3} />
                         <pointLight color={'#B778FF'} position={[10, 10, 10]} intensity={3} />  
                         <spotLight color={'#B778FF'}  angle={0.15} penumbra={1} intensity={1} />
-                        {/* <RotatingTree1/> */}
-                        {/* <RotatingTree2/> */}
-                        {/* <RotatingTree3/> */}
-                        {/* <RotatingTree4/> */}
-                        {/* <RotatingTree5/> */}
+                        {renderTreeByExp()} {/* 여기에서 나무를 렌더링합니다. */}
 
                         <OrbitControls 
                             enablePan={false} 
@@ -157,8 +187,13 @@ export default function MyPage(){
             </div>
             
             <div className="log-container">
-                <LogIcon/>
+              {[...Array(Math.min(logCount, 20))].map((_, index) => (
+                <div className="log-icon-wrapper" key={index}>
+                  <LogIcon iconNum={index}/>
+                </div>
+              ))}
             </div>
+            
         </div>
     );
 }

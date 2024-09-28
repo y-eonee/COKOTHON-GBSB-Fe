@@ -24,7 +24,26 @@
     margin-left: 20px;
 }
 
-.log-container{
+.log-container {
+    display: flex; /* Flexbox 활성화 */
+    flex-wrap: wrap; /* 여러 줄로 감싸기 */
+    justify-content: flex-start; /* 왼쪽 정렬 */
     margin-top: 30px;
-    margin-left: 400px;
+    margin-left: 500px;
+    margin-right: 400px;
+    max-width: calc(100% - 400px); /* 왼쪽 여백을 고려하여 최대 너비 설정 */
+}
+
+.log-icon-wrapper {
+    flex: 0 0 20%; /* 각 아이콘의 너비를 20%로 설정하여 한 줄에 5개 */
+    max-width: 100px; /* 최대 너비 설정 */
+    padding: 5px; /* 여백 추가 */
+    box-sizing: border-box; /* 패딩과 보더를 너비에 포함 */
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.log-icon-wrapper img {
+    width: 100%; /* 아이콘 이미지를 감싸는 div의 너비에 맞추기 */
+    height: auto; /* 비율에 따라 높이 자동 조정 */
 }
