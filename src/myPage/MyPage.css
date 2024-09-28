@@ -1,0 +1,34 @@
+.parent-container{
+    display: flex;
+    flex-direction: row; /* 수평으로 배치 */
+    align-items: flex-start; /* 컨테이너의 상단 정렬 */
+}
+.info-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 130px;
+    margin-left: 70px;
+    width: 250px;
+    height: 170px;
+    overflow: hidden;
+    border-radius: 10px; /* 라운드 처리 */
+    background-color: rgba(255,255,255,0.8);
+    border: 1px solid #525252;
+    flex: 1; /* 남은 공간을 채우도록 설정 */
+    padding-top: 50px;
+    padding-left: 15px;
+    position: fixed;
+}
+
+.info-container span{
+    margin-left: 20px;
+}
+
+.tree-container{
+    /* position: relative;
+    justify-content: center;
+    align-items: center;
+    margin-left: 700px;
+    margin-top: 80px;
+    height: 700px; */
+}

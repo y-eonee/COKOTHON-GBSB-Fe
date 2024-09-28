@@ -12,6 +12,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import MyPage from './myPage/MyPage';
 
 
 function App() {
@@ -24,6 +25,8 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           {/* <Route path="/success" element={<Success />} /> */}
           <Route path="/checkGrammer" element={<Grammer/>}/>
+          <Route path="/myPage" element={<MyPage/>}/>
+
 
       </Routes>
     </Router>
