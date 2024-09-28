@@ -106,3 +106,12 @@
 .input-content:focus{
     outline: none;
 }
+
+
+.experience-text {
+    position: absolute; /* 절대 위치 설정 */
+    top: 70px;
+    left: 20px; /* 왼쪽에서 20px 위치 */
+    text-align: left; /* 왼쪽 정렬 */
+    margin-left: 10px;
+}

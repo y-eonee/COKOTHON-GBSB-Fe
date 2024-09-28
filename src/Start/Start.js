@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef,  startTransition  } from "react";
 import { Canvas } from '@react-three/fiber';
 import { Html,OrbitControls, useGLTF } from '@react-three/drei';
 import NavigationBar from "../NavigationBar/NavigationBar";
@@ -13,7 +13,9 @@ export default function Start(){
     const navigate = useNavigate();
 
     function nextHandler(){
+      startTransition(() => { // Wrap navigation logic in startTransition
         navigate('/checkGrammer');
+      });
     }
 
     function RotatingTree() {
@@ -39,7 +41,7 @@ export default function Start(){
             >
                 <ambientLight color={'#ffffff'} intensity={3} />
                 <pointLight color={'#B778FF'} position={[10, 10, 10]} intensity={3} />
-                <spotLight color={'#B778FF'} position={[0, 10, 0]} angle={0.15} penumbra={1} intensity={1} />
+                <spotLight color={'#B778FF'} position={[0, -10, 0]} angle={0.15} penumbra={1} intensity={1} />
 
                 
                 <RotatingTree />

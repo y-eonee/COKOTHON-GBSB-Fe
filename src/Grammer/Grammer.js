@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import { Canvas } from "react-three-fiber";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import "./Grammer.css";
+import TreeLevel1 from "../TreeModel/TreeLevel1";
+import TreeLevel2 from "../TreeModel/TreeLevel2";
+import TreeLevel3 from "../TreeModel/TreeLevel3";
+import TreeLevel4 from "../TreeModel/TreeLevel4";
+import TreeLevel5 from "../TreeModel/TreeLevel5";
 
 export default function Grammer(){
     const [content, setContent] = useState("");
@@ -40,15 +45,22 @@ export default function Grammer(){
                     <div className="check-title">
                         <span>교정 결과</span>
                     </div>
-                    <textarea className="input-content" />
+                    <span className="input-content" />
                 </div>
                 <div className="rectangle">
                     <div className="check-title">
                         <span>나의 나무</span> 
                     </div>
-                    <Canvas>
-
-                    </Canvas>
+                    <div className="experience-text">
+                        <span>경험치 40을 획득했습니다.</span>
+                    </div>
+                    
+                    {/* 경험치 불러오는 api */}
+                    <TreeLevel1/>
+                    {/* <TreeLevel2 /> */}
+                    {/* <TreeLevel3/> */}
+                    {/* <TreeLevel4/> */}
+                    {/* <TreeLevel5/> */}
                 </div>
             </div>
         </div>
