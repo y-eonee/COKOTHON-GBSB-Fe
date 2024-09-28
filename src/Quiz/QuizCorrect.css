@@ -1,0 +1,32 @@
+.correct-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이 */
+    padding: 20px;
+}
+
+.quiz-title {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.quiz-content {
+    width: 400px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    position: relative; /* 자식 요소들의 위치를 기준으로 설정 */
+}
+
+.explanation {
+    font-size: 18px;
+    margin-top: 10px;
+}
