@@ -61,6 +61,7 @@ export default function NavigationBar() {
         navigate('/'); // 로그아웃 후 홈으로 이동
     };
 
+
     return (
         <div className="header">
             <div className="title-container">

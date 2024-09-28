@@ -1,6 +1,7 @@
-.start-button{
+.start-button {
     position: absolute;
-    margin-right: 30px;
+    left: 50%; /* 화면의 가로 중앙으로 이동 */
     bottom: 20px; /* 버튼을 화면 아래에서 20px 위로 */
+    transform: translateX(-50%); /* 버튼의 중앙을 기준으로 이동 */
+    align-items: center; /* 세로 정렬 */
 }
-

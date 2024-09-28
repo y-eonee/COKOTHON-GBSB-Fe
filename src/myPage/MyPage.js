@@ -162,9 +162,9 @@ export default function MyPage(){
             <NavigationBar/>
             <div className="parent-container">
                 <div className="info-container">
-                    <span>회원 정보</span> <br />
-                    <span>닉네임: {userInfo.nickname}</span> <br /> 
-                    <span>경험치: {exp}</span> <br />
+                    <span id="info-title">회원 정보</span> <br />
+                    <span id="info-text">닉네임: {userInfo.nickname}</span> <br /> 
+                    <span id="info-text">🍀 경험치: {exp}</span> <br />
                 </div>
                 <div className="tree-container" style={{ width: '100vw', height: '80vh', margin: 0, padding: 0}}>
                     <Canvas
