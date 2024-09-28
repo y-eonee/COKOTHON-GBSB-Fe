@@ -61,11 +61,15 @@ export default function NavigationBar() {
         navigate('/'); // 로그아웃 후 홈으로 이동
     };
 
+    const handleMain =()=>{
+        navigate('/');
+    };
+
 
     return (
         <div className="header">
             <div className="title-container">
-                <span>뿌리 깊은 나무</span>
+                <span onClick={handleMain}>뿌리 깊은 나무</span>
             </div>
 
             <div className="menu-container">
