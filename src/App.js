@@ -12,7 +12,9 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+
 import MyPage from './myPage/MyPage';
+import GrammerLog from './GrammerLog/GrammerLog';
 
 
 function App() {
@@ -26,6 +28,7 @@ function App() {
           {/* <Route path="/success" element={<Success />} /> */}
           <Route path="/checkGrammer" element={<Grammer/>}/>
           <Route path="/myPage" element={<MyPage/>}/>
+          <Route path="/myPage/myLog" element={<GrammerLog/>}/>
 
 
       </Routes>

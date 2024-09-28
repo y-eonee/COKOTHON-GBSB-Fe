@@ -1,0 +1,16 @@
+.icon-container {
+    width: 100px; /* 아이콘의 너비 */
+    height: 100px; /* 아이콘의 높이 */
+    border-radius: 50%; /* 동그랗게 만들기 */
+    background-color: #f0f0f0; /* 배경색 */
+    display: flex; /* Flexbox를 사용하여 중앙 정렬 */
+    justify-content: center; /* 수평 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    overflow: hidden; /* 내용이 넘어가면 잘리도록 설정 */
+    margin-right: 20px;
+}
+
+.icon-container img {
+    width: 80%; /* 이미지 너비 (원하는 비율로 조정 가능) */
+    height: auto; /* 자동 높이 유지 */
+}

@@ -3,6 +3,7 @@ import { Canvas, useFrame } from "react-three-fiber";
 import { useGLTF, OrbitControls } from "@react-three/drei";
 import NavigationBar from "../NavigationBar/NavigationBar";
 import "./MyPage.css";
+import LogIcon from "../LogIcon/LogIcon";
 
 export default function MyPage(){
     const treeRef = useRef(); // useRef 훅으로 오브젝트 참조 생성
@@ -107,8 +108,6 @@ export default function MyPage(){
                         {/* <RotatingTree4/> */}
                         <RotatingTree5/>
 
-
-
                         <OrbitControls 
                             enablePan={false} 
                             enableZoom={false}
@@ -120,7 +119,9 @@ export default function MyPage(){
                 </div>
             </div>
             
-            <div className="log-container"></div>
+            <div className="log-container">
+                <LogIcon/>
+            </div>
         </div>
     );
 }
