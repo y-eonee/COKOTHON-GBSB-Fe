@@ -1,0 +1,22 @@
+/* StartQuiz.css */
+.start-quiz-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.start-quiz-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.start-quiz-btn {
+    width: 200px;
+    height: 50px;
+    font-size: 18px;
+
+}
