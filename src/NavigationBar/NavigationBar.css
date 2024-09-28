@@ -1,3 +1,4 @@
+/* 기존 스타일 유지 */
 @font-face {
     font-family: 'ClimateCrisisKR-1979';
     src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/ClimateCrisisKR-1979.woff2') format('woff2');
@@ -35,7 +36,7 @@ body {
 .menu-container {
     display: flex;
     margin-left: auto; /* 메뉴 항목을 오른쪽으로 정렬 */
-    margin-right : 20px;
+    margin-right: 20px;
 }
 
 .menu-container span {
@@ -47,6 +48,17 @@ body {
 
 .menu-container span:hover {
     color: #168F0B;
+}
+
+/* 회색으로 닉네임 스타일링 */
+.nickname {
+    color: gray; /* 회색 */
+    font-weight: bold; /* 굵게 표시 */
+}
+
+/* nickname에 hover 효과가 적용되지 않도록 설정 */
+.nickname:hover {
+    color: gray; /* hover 상태에서도 색상이 변하지 않도록 설정 */
 }
 
 /* 페이지 내용에 네비게이션 바의 높이만큼 여백 추가 */
