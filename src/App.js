@@ -32,7 +32,7 @@ function App() {
                 <Route path="/quiz-correct" element={<QuizCorrect/>}/>
                 <Route path="/checkGrammer" element={<Grammer/>}/>
                 <Route path="/myPage" element={<MyPage/>}/>
-                <Route path="/myPage/myLog" element={<GrammerLog/>}/>
+                <Route path="/grammerlog/:index" element={<GrammerLog />} />
             </Routes>
         </Router>
     );
