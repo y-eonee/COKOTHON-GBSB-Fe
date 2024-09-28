@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'ClimateCrisisKR-1979';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2212@1.0/ClimateCrisisKR-1979.woff2') format('woff2');
+    font-weight: 900;
+    font-style: normal;
+}
+
+body{
+    margin:0;
+}
+
+.header{
+    display: flex; /* 플렉스 박스를 사용하여 수평 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 15px; /* 패딩 */
+}
+
+.title-container {
+    padding: 15px; /* 패딩 */
+    color: black; /* 글자 색상 */
+    font-size: 20px; /* 글자 크기 */
+    margin-left: 50px;
+    margin-right: 900px;
+    white-space: nowrap; /* 줄바꿈 방지 */
+    font-family: 'ClimateCrisisKR-1979'; 
+    font-weight : 600;
+}
+
+/* .title-container span{
+    font-weight : 800;
+} */
+
+.menu-container {
+    display: flex; /* 플렉스 박스 사용 */
+    padding: 10px 0; /* 상하 패딩 */
+    top: 0; /* 화면 상단에 고정 */
+    width: 100%; /* 너비 100% */
+    z-index: 1000; /* 다른 요소 위에 표시되도록 설정 */
+    margin-left: auto; /* 오른쪽 정렬 */
+}
+
+.menu-container span {
+    margin: 0 20px; /* 좌우 여백 */
+    cursor: pointer; /* 커서 모양 변경 */
+    transition: color 0.3s; /* 색상 변화 애니메이션 */
+    font-weight: 500;
+}
+
+.menu-container span:hover {
+    color: #168F0B; /* 마우스 오버 시 색상 변경 */
+}
+
+.content {
+    margin-top: 60px; /* 메뉴 높이 만큼 여백 추가 */
+}
