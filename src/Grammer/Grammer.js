@@ -10,7 +10,8 @@ export default function Grammer() {
     const [isTouched, setIsTouched] = useState(false);
     const [correctionResults, setCorrectionResults] = useState([]);
     const [expTextView, setExpTextView] = useState(false);
-    const [exp, setExp] = useState(0);
+    const [exp, setExp] = useState(0); //검사할 때 exp
+    const [allExp, setAllExp] = useState(0); //총량 exp
     const treeRef = useRef();
     const accessToken = localStorage.getItem('token');
 
@@ -29,7 +30,9 @@ export default function Grammer() {
                 }
             );
             setCorrectionResults(response.data.result);
+            console.log(response.data.result);
             setExp(response.data.exp);
+            setAllExp(allExp + exp);
             fetchTreeExp();
             setExpTextView(true);
         } catch (error) {
@@ -45,7 +48,7 @@ export default function Grammer() {
                     Authorization: `${accessToken}`,
                 },
             });
-            setExp(response.data.exp);
+            setAllExp(allExp);
         } catch (error) {
             console.error('API 에러:', error);
         }
