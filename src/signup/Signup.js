@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import NavigationBar from "../NavigationBar/NavigationBar";
+import Button from "../Button/Button";
 import './Signup.css';
 
 const Signup = () => {
@@ -67,6 +69,8 @@ const Signup = () => {
     };
 
     return (
+        <div>
+            <NavigationBar />
         <div className="signup-container">
             <form onSubmit={handleSubmit} className="signup-form">
                 <h2>회원 가입</h2>
@@ -84,28 +88,31 @@ const Signup = () => {
                         placeholder="영어와 숫자 조합, 4~15글자"
                         style={{ flexGrow: 2, marginRight: '10px' }}
                     />
-                    <button
-                        type="button"
-                        onClick={handleCheckId}
-                        disabled={!formData.id || !idValid}  // 유효하지 않은 아이디는 중복 확인 불가
-                        className="check-id-btn"
-                    >
-                        중복 확인
-                    </button>
+                    {/* 아이디가 유효할 때만 중복 확인 버튼 렌더링 */}
+                    {idValid && (
+                        <button
+                            type="button"
+                            onClick={handleCheckId}
+                            className="check-id-btn"
+                        >
+                            중복 확인
+                        </button>
+                    )}
                 </div>
-                {/* 아이디 유효성 검사 결과 */}
-                {!idValid && formData.id.length > 0 && (
-                    <p className="invalid-message">아이디는 영어와 숫자로 이루어진 4~15글자이어야 합니다.</p>
-                )}
 
-                {/* 아이디 중복 확인 결과 */}
-                {isIdChecked && idValid && (
-                    idAvailable ? (
-                        <p className="valid-message">사용 가능한 아이디입니다.</p>
-                    ) : (
-                        <p className="invalid-message">이미 존재하는 아이디입니다.</p>
-                    )
-                )}
+                {/* 중복 확인 메시지 */}
+                <div className="message-container">
+                    {!idValid && formData.id.length > 0 && (
+                        <p className="invalid-message">아이디는 영어와 숫자로 이루어진 4~15글자이어야 합니다.</p>
+                    )}
+                    {isIdChecked && idValid && (
+                        idAvailable ? (
+                            <p className="valid-message">사용 가능한 아이디입니다.</p>
+                        ) : (
+                            <p className="invalid-message">이미 존재하는 아이디입니다.</p>
+                        )
+                    )}
+                </div>
 
                 <label>비밀번호</label>
                 <input type="password" name="password" value={formData.password} onChange={handleChange} />
@@ -121,10 +128,11 @@ const Signup = () => {
                     )
                 )}
 
-                <button type="submit" disabled={!passwordMatch || !isIdChecked || !idAvailable || !idValid}>
+                <Button className="signup-btn" type="submit" disabled={!passwordMatch || !isIdChecked || !idAvailable || !idValid}>
                     회원가입
-                </button>
+                </Button>
             </form>
+        </div>
         </div>
     );
 };

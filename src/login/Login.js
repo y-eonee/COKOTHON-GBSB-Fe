@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';  // Link 컴포넌트 추가
+import NavigationBar from "../NavigationBar/NavigationBar";
 import './Login.css';
+import Button from "../Button/Button";
 
 const Login = () => {
     const [formData, setFormData] = useState({
@@ -38,6 +40,7 @@ const Login = () => {
     };
 
     return (
+        <div><NavigationBar />
         <div className="login-container">
             <form onSubmit={handleSubmit} className="login-form">
                 <h2>로그인</h2>
@@ -48,13 +51,14 @@ const Login = () => {
                 <label>비밀번호</label>
                 <input type="password" name="password" value={formData.password} onChange={handleChange} />
 
-                <button type="submit">로그인</button>
+                <Button type="submit">로그인</Button>
 
                 {/* 회원가입 페이지로 이동하는 링크 추가 */}
                 <p className="signup-link">
                     아직 계정이 없으신가요? <Link to="/signup">회원가입</Link>
                 </p>
             </form>
+        </div>
         </div>
     );
 };
