@@ -25,7 +25,7 @@ const Login = () => {
         const { id, password } = formData;
 
         try {
-            const response = await axios.post(`http://10.223.114.198:8080/user/login`,
+            const response = await axios.post(`http://10.223.114.81:8080/user/login`,
                 {
                     "userID": id,
                     "password": password

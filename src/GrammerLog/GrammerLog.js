@@ -12,7 +12,7 @@ export default function GrammerLog() {
     // 로그 가져오기
     const fetchLog = async () => {
         try {
-            const response = await axios.post(`http://10.223.114.198:8080/log`, null, { 
+            const response = await axios.post(`http://10.223.114.81:8080/log`, null, {
                 headers: {
                     Authorization: `${accessToken}`,
                 },

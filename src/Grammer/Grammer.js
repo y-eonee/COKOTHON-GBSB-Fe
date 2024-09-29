@@ -19,7 +19,7 @@ export default function Grammer() {
     // 맞춤법 검사 API 호출
     async function checkSpelling(sentence) {
         try {
-            const response = await axios.post(`http://10.223.114.198:8080`, 
+            const response = await axios.post(`http://10.223.114.81:8080`,
                 {
                     "sentence": sentence
                 }, 
@@ -43,7 +43,7 @@ export default function Grammer() {
     // 경험치 호출 API
     const fetchTreeExp = async () => {
         try {
-            const response = await axios.post(`http://10.223.114.198:8080/tree`, null, {
+            const response = await axios.post(`http://10.223.114.81:8080/tree`, null, {
                 headers: {
                     Authorization: `${accessToken}`,
                 },

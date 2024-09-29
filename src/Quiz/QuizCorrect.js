@@ -14,7 +14,7 @@ const QuizCorrect = () => {
         const fetchExplanation = async () => {
             try {
                 // 서버에 POST 요청 보내기
-                const response = await axios.post(`http://10.223.114.198:8080`,
+                const response = await axios.post(`http://10.223.114.81:8080`,
                     {
                         "sentence": words.join(' ') // 전달받은 words를 join해서 서버에 보냄
                     }

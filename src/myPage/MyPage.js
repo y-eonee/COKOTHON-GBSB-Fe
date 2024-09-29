@@ -17,7 +17,7 @@ export default function MyPage(){
 
     const fetchTreeExp = async () => {
       try {
-          const response = await axios.post(`http://10.223.114.198:8080/tree`, null, {
+          const response = await axios.post(`http://10.223.114.81:8080/tree`, null, {
               headers: {
                   Authorization: `${accessToken}`,
               },
@@ -45,7 +45,7 @@ export default function MyPage(){
      // 로그 개수 가져오기
      const fetchLogCount = async () => {
       try {
-          const response = await axios.post(`http://10.223.114.198:8080/log`, null, {
+          const response = await axios.post(`http://10.223.114.81:8080/log`, null, {
               headers: {
                   Authorization: `${accessToken}`,
               },
@@ -61,7 +61,7 @@ export default function MyPage(){
      // 사용자 정보 가져오기
      const fetchUserInfo = async () => {
       try {
-          const response = await axios.post(`http://10.223.114.198:8080/info`, null, {
+          const response = await axios.post(`http://10.223.114.81:8080/info`, null, {
               headers: {
                   Authorization: `${accessToken}`,
               },

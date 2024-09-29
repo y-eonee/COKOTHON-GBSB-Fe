@@ -14,7 +14,7 @@ export default function NavigationBar() {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const response = await axios.post('http://10.223.114.198:8080/info', {}, {
+                    const response = await axios.post('http://10.223.114.81:8080/info', {}, {
                         headers: {
                             Authorization: `${token}`
                         }
@@ -86,7 +86,6 @@ export default function NavigationBar() {
                         <span onClick={handleSignIn}>회원가입</span>
                         <span onClick={handleLogin}>로그인</span>
                         <span onClick={handleGrammer}>맞춤법 검사</span>
-                        <span onClick={handleQuiz}>맞춤법 퀴즈</span>
                     </>
                 )}
             </div>

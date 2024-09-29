@@ -18,7 +18,7 @@ const Quiz = () => {
     useEffect(() => {
         const fetchQuizData = async () => {
             try {
-                const response = await axios.get('http://10.223.114.198:8080/quiz', {
+                const response = await axios.get('http://10.223.114.81:8080/quiz', {
                     headers: {
                         Authorization: `${accessToken}`, // AccessToken 추가
                     },
@@ -54,7 +54,7 @@ const Quiz = () => {
         try {
             // 퀴즈 `id`와 `answer`를 함께 서버로 전송
             const response = await axios.post(
-                `http://10.223.114.198:8080/quiz/${quizData.id}`,
+                `http://10.223.114.81:8080/quiz/${quizData.id}`,
                 {
                     answer: selectedAnswer,  // 실제 선택된 인덱스에 해당하는 값을 보냄
                     id: quizData.id // 퀴즈의 id를 함께 보냄
